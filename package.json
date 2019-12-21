@@ -1,0 +1,22 @@
+{
+  "name": "channelcoms",
+  "version": "1.0.0",
+  "description": "Dedicated to the principle that all communications are conferences / channels / threads",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mckinn/channelcoms.git"
+  },
+  "author": "S.McKinnon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mckinn/channelcoms/issues"
+  },
+  "homepage": "https://github.com/mckinn/channelcoms#readme",
+  "dependencies": {
+    "@slack/web-api": "^5.6.0"
+  }
+}
