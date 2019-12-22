@@ -3,8 +3,9 @@ const express = require('express'),
       server = express()
       bodyParser = require('body-parser');
 
-//setting the port.
-let localPort = process.env.PORT || 9000;
+ //note - this port is meaningless to Heroku, 
+ // but that does not seem to matter
+let localPort = process.env.PORT || 9000; 
 let thing = {
     name: 'Steve',
     location: 'Canada',
@@ -25,10 +26,11 @@ server.get('/thing',(request,response)=>{
  response.json(thing);
 });
 
-server.put('/parseit',(request,response)=>{
+server.put('/echo',(request,response)=>{
     response.json(request.body);
    });
 
-server.listen(localPort,()=>{
- console.log(`Express server started at port ${localPort}`);
+server.listen(server.get('port'),()=>{
+    // console.log(`Express server started at port ${localPort}`);
+    console.log('Express server started at port: ', server.get('port') );
 });
