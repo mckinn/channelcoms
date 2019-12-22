@@ -24,7 +24,7 @@ async function pingUser (textToSend = "hi there") {
   
     // Use the `chat.postMessage` method to send a message from this app
     await web.chat.postMessage({
-      channel: userId,
+      channel:  "C9XG2PBTN",   // General for now
       text: textToSend,
     });
       console.log(`Message ${textToSend} posted!`);
