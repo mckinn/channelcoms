@@ -2,9 +2,10 @@
   "name": "channelcoms",
   "version": "1.0.0",
   "description": "Dedicated to the principle that all communications are conferences / channels / threads",
-  "main": "main.js",
+  "main": "expressTrial.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "expressTrial.js"
   },
   "repository": {
     "type": "git",
