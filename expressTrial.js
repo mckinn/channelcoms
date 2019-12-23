@@ -57,7 +57,7 @@ server.get('/',(request,response)=>{
   response.json({text:"Hello World"});
 });
 
-server.get('/slack',(request,response)=>{
+server.post('/slack',(request,response)=>{
   console.log('validation challenge');
   const body = request.body;
   console.log(JSON.stringify(body));
