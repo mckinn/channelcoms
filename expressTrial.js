@@ -13,6 +13,9 @@ const express = require('express'),
 const localPort = process.env.PORT || 9000;
 const databaseUrl = process.env.MONDATABASE;
 const appToken = process.env.SLACK_TOKEN;
+const clientId = process.env.SLACK_CLIENT_ID;
+const clientSecret = process.env.SLACK_CLIENT_SECRET;
+
 console.log("Database URL is: " + databaseUrl);
 
 mongoose.connect(databaseUrl, {
@@ -38,6 +41,49 @@ async function pingUser(textToSend = "hi there") {
         text: textToSend,
     });
     console.log(`Message ${textToSend} posted!`);
+}
+
+async function getCreds({
+    code,
+    state,
+    client_id,
+    client_secret
+}) {
+    // TODO - think through this from a synchronicity perspextive   
+    (async () => {
+        // Create a client instance just to make this single call, and use it for the exchange
+        const result = await (new WebClient()).oauth.access({
+            client_id: clientId,
+            client_secret: clientSecret,
+            code,
+            state
+        });
+        const body = result.body;
+        // const temCreds = (({code}) => ({code}))(body); // destructure the challenge property to an object
+        const creds = ( // IFFE
+            function ({
+                access_token,
+                scope,
+                team_name,
+                team_id,
+                bot
+            }) { // assign challenge the value from the passed object
+                return {
+                    access_token,
+                    scope,
+                    team_name,
+                    team_id,
+                    bot
+                }; // return an object, rather than the thing itself
+            }
+        )(body); // execute the thing
+        console.log("the returned creds: ");
+        console.log(JSON.stringify(creds));
+        const cm = new credModel(creds);
+        cm.save(function (err, cm) {
+            if (err) return console.error(err);
+        });
+    })
 }
 
 db.on('error', () => {
@@ -114,42 +160,18 @@ server.post('/slack', (request, response) => {
     response.json(cha);
 });
 
-server.post('/slack/authAttempt', (request, response) => {
+server.get('/slack/authAttempt', (request, response) => {
     console.log('authorization attempt');
-    const body = request.body;
-    console.log(JSON.stringify(body));
-    /*
-    const temCreds = (({code}) => ({code}))(body); // destructure the challenge property to an object
-    const creds = ( // IFFE
-        function ({
-            access_token,
-            scope,
-            team_name,
-            team_id,
-            bot
-        }) { // assign challenge the value from the passed object
-            return {
-                access_token,
-                scope,
-                team_name,
-                team_id,
-                bot
-            }; // return an object, rather than the thing itself
-        }
-    )(body); // execute the thing
-    console.log(JSON.stringify(temCreds));
-     */
-    response.json({
-        code: "029384", // body.code
-        state: "osdjfosdajf", //body.state
-        client_id: "lskdjfldsjf",
-        client_secret: "lsadkfjlsdf"
+    const code = request.query.code;
+    const state = request.query.state;
+    console.log("temporary auth = " + code + ", " + state);
+    getCreds({
+        code,
+        state,
+        clientId: client_id,
+        clientSecret: client_secret
     });
-    /*     const cm = new credModel(creds);
-        cm.save(function (err, cm) {
-            if (err) return console.error(err); 
-    });
-    */
+
 });
 
 server.put('/client/echo', (request, response) => {
