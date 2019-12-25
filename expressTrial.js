@@ -50,10 +50,10 @@ async function getCreds({
     clientSecret
 }) {
     // TODO - think through this from a synchronicity perspextive 
-    Console.log("code = " + code);
-    Console.log("state = " + state);
-    Console.log("clientId = " + clientId);
-    Console.log("clientSecret = " + clientSecret);
+    console.log("code = " + code);
+    console.log("state = " + state);
+    console.log("clientId = " + clientId);
+    console.log("clientSecret = " + clientSecret);
     (async () => {
         // Create a client instance just to make this single call, and use it for the exchange
         const result = await (new WebClient()).oauth.access({
