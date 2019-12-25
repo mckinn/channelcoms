@@ -46,10 +46,14 @@ async function pingUser(textToSend = "hi there") {
 async function getCreds({
     code,
     state,
-    client_id,
-    client_secret
+    clientId,
+    clientSecret
 }) {
-    // TODO - think through this from a synchronicity perspextive   
+    // TODO - think through this from a synchronicity perspextive 
+    Console.log("code = " + code);
+    Console.log("state = " + state);
+    Console.log("clientId = " + clientId);
+    Console.log("clientSecret = " + clientSecret);
     (async () => {
         // Create a client instance just to make this single call, and use it for the exchange
         const result = await (new WebClient()).oauth.access({
@@ -168,8 +172,8 @@ server.get('/slack/authAttempt', (request, response) => {
     getCreds({
         code,
         state,
-        clientId: client_id,
-        clientSecret: client_secret
+        clientId,
+        clientSecret
     });
 
 });
