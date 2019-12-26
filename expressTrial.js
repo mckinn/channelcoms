@@ -81,11 +81,10 @@ async function getCreds({
     const cm = new credModel(creds);
     console.log("creds = ");
     console.log(JSON.stringify(creds));
-    cm.save(function (err, cm) {
+    await cm.save(function (err, cm) {
         if (err) return console.error(err);
     });
     console.log("back from save");
-
 };
 
 db.on('error', () => {
