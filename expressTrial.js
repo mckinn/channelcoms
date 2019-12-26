@@ -76,7 +76,7 @@ async function getCreds({
             team_name,
             team_id,
             bot
-        }))(body);
+        }))(result);
     const cm = new credModel(creds);
     cm.save(function (err, cm) {
         if (err) return console.error(err);
