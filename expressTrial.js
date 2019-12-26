@@ -129,9 +129,11 @@ server.get('/slack/authAttempt', (request, response) => {
 
     response.sendStatus(400);
 
+    let result = {};
+
     (async () => {
         // Create a client instance just to make this single call, and use it for the exchange
-        const result = await (new WebClient()).oauth.access({
+        result = await (new WebClient()).oauth.access({
             client_id: clientId,
             client_secret: clientSecret,
             code
