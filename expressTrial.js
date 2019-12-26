@@ -168,12 +168,13 @@ server.get('/slack/authAttempt', (request, response) => {
     console.log("temporary auth = " + code + ", " + state);
     response.status(200);
     console.log("entering getCreds");
-    getCreds({
+    const asf = getCreds({
         code,
         state,
         clientId,
         clientSecret
     });
+    console.log(JSON.stringify(asf));
     console.log("back from server.get/authAttempt");
 });
 
