@@ -54,34 +54,34 @@ async function getCreds({
     console.log("state = " + state);
     console.log("clientId = " + clientId);
     console.log("clientSecret = " + clientSecret);
-    (async () => {
-        // Create a client instance just to make this single call, and use it for the exchange
-        const result = await (new WebClient()).oauth.access({
-            client_id: clientId,
-            client_secret: clientSecret,
-            code
-        });
-        console.log(JSON.stringify(result));
-        // destructure the challenge property to an object
-        const creds = (({
-                access_token,
-                scope,
-                team_name,
-                team_id,
-                bot
-            }) =>
-            ({
-                access_token,
-                scope,
-                team_name,
-                team_id,
-                bot
-            }))(body);
-        const cm = new credModel(creds);
-        cm.save(function (err, cm) {
-            if (err) return console.error(err);
-        });
+
+    // Create a client instance just to make this single call, and use it for the exchange
+    const result = await (new WebClient()).oauth.access({
+        client_id: clientId,
+        client_secret: clientSecret,
+        code
     });
+    console.log(JSON.stringify(result));
+    // destructure the challenge property to an object
+    const creds = (({
+            access_token,
+            scope,
+            team_name,
+            team_id,
+            bot
+        }) =>
+        ({
+            access_token,
+            scope,
+            team_name,
+            team_id,
+            bot
+        }))(body);
+    const cm = new credModel(creds);
+    cm.save(function (err, cm) {
+        if (err) return console.error(err);
+    });
+
 }
 
 db.on('error', () => {
