@@ -126,18 +126,18 @@ server.get('/slack/authAttempt', (request, response) => {
     const state = request.query.state;
     console.log("temporary auth = " + code);
     console.log("state = " + state);
-    /* 
-        (async () => {
-            // Create a client instance just to make this single call, and use it for the exchange
-            const result = await (new WebClient()).oauth.access({
-                client_id: clientId,
-                client_secret: clientSecret,
-                code
-            });
-            console.log(JSON.stringify(result));
-        })();
-     */
 
+    (async () => {
+        // Create a client instance just to make this single call, and use it for the exchange
+        const result = await (new WebClient()).oauth.access({
+            client_id: clientId,
+            client_secret: clientSecret,
+            code
+        });
+        console.log(JSON.stringify(result));
+    })();
+
+    response.sendStatus(400);
 });
 
 server.put('/client/echo', (request, response) => {
