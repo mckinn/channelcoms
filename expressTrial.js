@@ -43,51 +43,7 @@ async function pingUser(textToSend = "hi there") {
     console.log(`Message ${textToSend} posted!`);
 }
 
-async function getCreds({
-    code,
-    state,
-    clientId,
-    clientSecret
-}) {
-    // TODO - think through this from a synchronicity perspextive 
-    console.log("code = " + code);
-    console.log("state = " + state);
-    console.log("clientId = " + clientId);
-    console.log("clientSecret = " + clientSecret);
 
-    // Create a client instance just to make this single call, and use it for the exchange
-    const newwc = new WebClient();
-    const result = await newwc.oauth.access({
-        client_id: clientId,
-        client_secret: clientSecret,
-        code,
-        redirect_uri: "https://channelcoms.herokuapp.com/slack/authAttempt"
-    });
-    console.log("completed oauth.access await.");
-    // destructure the challenge property to an object
-    const creds = (({
-            access_token,
-            scope,
-            team_name,
-            team_id,
-            bot
-        }) =>
-        ({
-            access_token,
-            scope,
-            team_name,
-            team_id,
-            bot
-        }))(result);
-    const cm = new credModel(creds);
-    console.log("creds = ");
-    console.log(JSON.stringify(creds));
-    /*     await cm.save(function (err, cm) {
-            if (err) console.error(err);
-            console.log("save complete");
-        }); */
-    console.log("end of linear getCreds");
-};
 
 db.on('error', () => {
     console.error.bind(console, 'connection error:');
@@ -164,20 +120,22 @@ server.post('/slack', (request, response) => {
 });
 
 server.get('/slack/authAttempt', (request, response) => {
+
     console.log('authorization attempt' + JSON.stringify(request.url));
     const code = request.query.code;
     const state = request.query.state;
-    console.log("temporary auth = " + code + ", " + state);
-    response.status(200);
-    console.log("entering getCreds");
-    const asf = getCreds({
-        code,
-        state,
-        clientId,
-        clientSecret
-    });
-    console.log(JSON.stringify(asf));
-    console.log("back from server callback.get/authAttempt");
+    console.log("temporary auth = " + code);
+    console.log("state = " + state);
+    (async () => {
+        // Create a client instance just to make this single call, and use it for the exchange
+        const result = await (new WebClient()).oauth.access({
+            client_id: clientId,
+            client_secret: clientSecret,
+            code
+        });
+        console.log(JSON.stringify(result));
+    })();
+
 });
 
 server.put('/client/echo', (request, response) => {
