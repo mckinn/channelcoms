@@ -63,8 +63,7 @@ async function getCreds({
         code,
         redirect_uri: "https://channelcoms.herokuapp.com/slack/authAttempt"
     });
-    console.log("result = ");
-    console.log(JSON.stringify(result));
+    console.log("completed oauth.access await.");
     // destructure the challenge property to an object
     const creds = (({
             access_token,
@@ -84,7 +83,7 @@ async function getCreds({
     console.log("creds = ");
     console.log(JSON.stringify(creds));
     await cm.save(function (err, cm) {
-        if (err) return console.error(err);
+        if (err) console.error(err);
     });
     console.log("back from save");
 };
