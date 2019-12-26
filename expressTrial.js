@@ -163,7 +163,8 @@ server.get('/slack/authAttempt', (request, response) => {
     const code = request.query.code;
     const state = request.query.state;
     console.log("temporary auth = " + code + ", " + state);
-    response.json(null);
+    response.status(200);
+    console.log("entering getCreds");
     getCreds({
         code,
         state,
