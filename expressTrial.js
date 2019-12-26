@@ -28,7 +28,7 @@ const web = new WebClient(appToken);
 
 async function pingUser(textToSend = "hi there") {
     // Use the `auth.test` method to find information about the installing user
-    const res = await web.auth.test()
+    const res = await web.auth.test();
 
     // Find your user id to know where to send messages to
     const userId = res.user_id
@@ -59,35 +59,29 @@ async function getCreds({
         const result = await (new WebClient()).oauth.access({
             client_id: clientId,
             client_secret: clientSecret,
-            code,
-            state
+            code
         });
-        const body = result.body;
-        // const temCreds = (({code}) => ({code}))(body); // destructure the challenge property to an object
-        const creds = ( // IFFE
-            function ({
+        console.log(JSON.stringify(result));
+        // destructure the challenge property to an object
+        const creds = (({
                 access_token,
                 scope,
                 team_name,
                 team_id,
                 bot
-            }) { // assign challenge the value from the passed object
-                return {
-                    access_token,
-                    scope,
-                    team_name,
-                    team_id,
-                    bot
-                }; // return an object, rather than the thing itself
-            }
-        )(body); // execute the thing
-        console.log("the returned creds: ");
-        console.log(JSON.stringify(creds));
+            }) =>
+            ({
+                access_token,
+                scope,
+                team_name,
+                team_id,
+                bot
+            }))(body);
         const cm = new credModel(creds);
         cm.save(function (err, cm) {
             if (err) return console.error(err);
         });
-    })
+    });
 }
 
 db.on('error', () => {
