@@ -82,10 +82,11 @@ async function getCreds({
     const cm = new credModel(creds);
     console.log("creds = ");
     console.log(JSON.stringify(creds));
-    await cm.save(function (err, cm) {
-        if (err) console.error(err);
-    });
-    console.log("back from save");
+    /*     await cm.save(function (err, cm) {
+            if (err) console.error(err);
+            console.log("save complete");
+        }); */
+    console.log("end of linear getCreds");
 };
 
 db.on('error', () => {
@@ -176,7 +177,7 @@ server.get('/slack/authAttempt', (request, response) => {
         clientSecret
     });
     console.log(JSON.stringify(asf));
-    console.log("back from server.get/authAttempt");
+    console.log("back from server callback.get/authAttempt");
 });
 
 server.put('/client/echo', (request, response) => {
