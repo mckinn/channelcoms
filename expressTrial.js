@@ -56,10 +56,12 @@ async function getCreds({
     console.log("clientSecret = " + clientSecret);
 
     // Create a client instance just to make this single call, and use it for the exchange
-    const result = await (new WebClient()).oauth.access({
+    const newwc = new WebClient();
+    const result = await newwc.oauth.access({
         client_id: clientId,
         client_secret: clientSecret,
-        code
+        code,
+        redirect_uri: "https://channelcoms.herokuapp.com/slack/authAttempt"
     });
     console.log("result = ");
     console.log(JSON.stringify(result));
@@ -162,7 +164,7 @@ server.post('/slack', (request, response) => {
 });
 
 server.get('/slack/authAttempt', (request, response) => {
-    console.log('authorization attempt');
+    console.log('authorization attempt' + JSON.stringify(request));
     const code = request.query.code;
     const state = request.query.state;
     console.log("temporary auth = " + code + ", " + state);
