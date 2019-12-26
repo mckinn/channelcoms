@@ -61,6 +61,7 @@ async function getCreds({
         client_secret: clientSecret,
         code
     });
+    console.log("result = ");
     console.log(JSON.stringify(result));
     // destructure the challenge property to an object
     const creds = (({
@@ -78,11 +79,14 @@ async function getCreds({
             bot
         }))(result);
     const cm = new credModel(creds);
+    console.log("creds = ");
+    console.log(JSON.stringify(creds));
     cm.save(function (err, cm) {
         if (err) return console.error(err);
     });
+    console.log("back from save");
 
-}
+};
 
 db.on('error', () => {
     console.error.bind(console, 'connection error:');
@@ -171,7 +175,7 @@ server.get('/slack/authAttempt', (request, response) => {
         clientId,
         clientSecret
     });
-
+    console.log("back from server.get/authAttempt");
 });
 
 server.put('/client/echo', (request, response) => {
