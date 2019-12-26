@@ -127,6 +127,8 @@ server.get('/slack/authAttempt', (request, response) => {
     console.log("temporary auth = " + code);
     console.log("state = " + state);
 
+    response.sendStatus(400);
+
     (async () => {
         // Create a client instance just to make this single call, and use it for the exchange
         const result = await (new WebClient()).oauth.access({
@@ -137,7 +139,33 @@ server.get('/slack/authAttempt', (request, response) => {
         console.log(JSON.stringify(result));
     })();
 
-    response.sendStatus(400);
+    console.log("completed oauth.access await.");
+    const creds = (({
+            access_token,
+            scope,
+            team_name,
+            team_id,
+            bot
+        }) =>
+        ({
+            access_token,
+            scope,
+            team_name,
+            team_id,
+            bot
+        }))(result);
+    console.log("creds = ");
+    console.log(JSON.stringify(creds));
+
+    (async () => {
+        const cm = new credModel(creds);
+        await cm.save(function (err, cm) {
+            if (err) console.error(err);
+            console.log("db save complete - in save");
+        });
+        console.log("db save complete - outside save");
+    })();
+
 });
 
 server.put('/client/echo', (request, response) => {
