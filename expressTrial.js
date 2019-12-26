@@ -163,7 +163,7 @@ server.post('/slack', (request, response) => {
 });
 
 server.get('/slack/authAttempt', (request, response) => {
-    console.log('authorization attempt' + JSON.stringify(request));
+    console.log('authorization attempt' + JSON.stringify(request.url));
     const code = request.query.code;
     const state = request.query.state;
     console.log("temporary auth = " + code + ", " + state);
