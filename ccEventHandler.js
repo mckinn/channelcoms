@@ -1,15 +1,3 @@
-/* export {
-    ccEvents,
-}; */
-
-
-const ccEvents = {
-    app_home_opened: {
-        name: "app_home_opened",
-        handler: hao
-    },
-};
-
 hao = function ({
     event
 }) {
@@ -17,5 +5,12 @@ hao = function ({
     console.log(event.type);
     console.log(JSON.stringify(event));
 }
+
+const ccEvents = {
+    app_home_opened: {
+        name: "app_home_opened",
+        handler: hao
+    },
+};
 
 module.exports = ccEvents;
