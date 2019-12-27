@@ -1,6 +1,8 @@
-export {
+/* export {
     ccEvents,
-};
+}; */
+
+module.exports = ccevents;
 
 const ccEvents = {
     app_home_opened: {
