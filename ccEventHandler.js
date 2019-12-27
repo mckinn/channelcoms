@@ -1,9 +1,9 @@
-hao = function ({
+hao = function (
     event
-}) {
+) {
     console.log("*** in home_app_opened handler ***")
-    console.log(event.type);
     console.log(JSON.stringify(event));
+    console.log(event.type);
 }
 
 const ccEvents = {
