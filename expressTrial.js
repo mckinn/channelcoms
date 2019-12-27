@@ -109,6 +109,8 @@ server.post('/slack', (request, response) => {
     console.log('*** event happened ***');
     const body = request.body;
     console.log("COMPLETE BODY: " + JSON.stringify(body));
+    response.sendStatus(200);
+
     if (body.type == "url_verification") {
         console.log(body.type);
         // const cha = (({challenge}) => ({challenge}))(body); // destructure the challenge property to an object
