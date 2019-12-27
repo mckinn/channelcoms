@@ -122,7 +122,10 @@ server.post('/slack', (request, response) => {
         console.log(JSON.stringify(cha));
         response.json(cha);
     } else {
-        ccHandler = ccEvents[body.type](body);
+        console.log(`Main event type = ${body.type}`);
+        if (body.type == "event_callback") {
+            ccHandler = ccEvents[body.event.type](body);
+        }
     }
 });
 
