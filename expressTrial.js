@@ -143,7 +143,7 @@ server.get('/slack/authAttempt', (request, response) => {
     console.log("temporary auth = " + code);
     console.log("state = " + state);
 
-    response.sendStatus(400);
+    response.sendStatus(200);
 
     let result = {};
 
