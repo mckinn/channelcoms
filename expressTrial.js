@@ -19,6 +19,9 @@ const clientId = process.env.SLACK_CLIENT_ID;
 const clientSecret = process.env.SLACK_CLIENT_SECRET;
 
 console.log("Database URL is: " + databaseUrl);
+if (ccEvents) {
+    JSON.stringify(ccEvents)
+};
 
 mongoose.connect(databaseUrl, {
     useNewUrlParser: true
