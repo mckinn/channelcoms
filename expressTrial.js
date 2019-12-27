@@ -5,11 +5,10 @@ const express = require('express'),
     {
         WebClient
     } = require('@slack/web-api'),
-    mongoose = require('mongoose');
-
-import {
-    ccEvents
-} from './ccEventHandler';
+    mongoose = require('mongoose'),
+    {
+        ccEvents
+    } = require('./ccEventHandler');
 
 //note - this port is meaningless to Heroku, 
 // but that does not seem to matter
