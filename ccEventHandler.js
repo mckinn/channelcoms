@@ -2,7 +2,6 @@
     ccEvents,
 }; */
 
-module.exports = ccEvents;
 
 const ccEvents = {
     app_home_opened: {
@@ -17,3 +16,5 @@ function hao({
     console.log(body.type);
     console.log(JSON.stringify(body));
 }
+
+module.exports = ccEvents;
