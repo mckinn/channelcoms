@@ -1,8 +1,8 @@
 var request = require('request');
 
 const hao_view = {
-    token: 'xoxb-337577310114-882730030437-WHf1KIZLJoGTnYGrn4sQ0eKd',
-    user_id: 'U9YJLMEAK',
+    token: 'replace',
+    user_id: 'replace',
     view: {
         type: 'home',
         blocks: [{
@@ -40,7 +40,9 @@ const hao = function (
     console.log(JSON.stringify(event));
     console.log(event.type);
     hao_view.user_id = event.user;
-    request_options.auth.bearer = "xoxb-337577310114-882730030437-WHf1KIZLJoGTnYGrn4sQ0eKd";
+    hao_view.token = token;
+    console.log("VIEW: " + JSON.stringify(hao_view));
+    request_options.auth.bearer = token;
     request_options.body = JSON.stringify(hao_view);
     console.log("OPTIONS: " + JSON.stringify(request_options));
     const requested = request.post(request_options, function (error, response, body) {

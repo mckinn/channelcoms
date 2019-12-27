@@ -12,7 +12,8 @@ const express = require('express'),
 // but that does not seem to matter
 const localPort = process.env.PORT || 9000;
 const databaseUrl = process.env.MONDATABASE;
-const appToken = process.env.SLACK_TOKEN;
+const userToken = process.env.SLACK_USER_TOKEN;
+const botToken = process.env.SLACK_BOT_TOKEN;
 const clientId = process.env.SLACK_CLIENT_ID;
 const clientSecret = process.env.SLACK_CLIENT_SECRET;
 
@@ -26,8 +27,8 @@ mongoose.connect(databaseUrl, {
 });
 const db = mongoose.connection;
 
-console.log("Auth token is: " + appToken);
-const web = new WebClient(appToken);
+console.log("Auth token is: " + userToken);
+const web = new WebClient(userToken);
 
 async function pingUser(textToSend = "hi there") {
     // Use the `auth.test` method to find information about the installing user
@@ -126,7 +127,7 @@ server.post('/slack', (request, response) => {
         console.log(`Main event type = ${body.type}`);
         if (body.type == "event_callback") {
             if (typeof ccEvents[body.event.type] !== 'undefined') {
-                ccHandler = ccEvents[body.event.type].handler(body.event, body.token);
+                ccHandler = ccEvents[body.event.type].handler(body.event, botToken);
             } else {
                 console.log("NEW EVENT TYPE:" + body.event.type);
             }
