@@ -5,16 +5,17 @@
 
 const ccEvents = {
     app_home_opened: {
+        name: "app_home_opened",
         handler: hao
     },
 };
 
-function hao({
-    body
+hao = function ({
+    event
 }) {
     console.log("*** in home_app_opened handler ***")
-    console.log(body.type);
-    console.log(JSON.stringify(body));
+    console.log(event.type);
+    console.log(JSON.stringify(event));
 }
 
 module.exports = ccEvents;

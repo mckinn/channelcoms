@@ -105,7 +105,7 @@ server.get('/', (request, response) => {
 });
 
 server.post('/slack', (request, response) => {
-    console.log('validation challenge');
+    console.log('*** event happened ***');
     const body = request.body;
     console.log(JSON.stringify(body));
     if (body.type == "url_verification") {
@@ -125,7 +125,7 @@ server.post('/slack', (request, response) => {
     } else {
         console.log(`Main event type = ${body.type}`);
         if (body.type == "event_callback") {
-            ccHandler = ccEvents[body.event.type](body);
+            ccHandler = ccEvents[body.event.type].handler(body.event);
         }
     }
 });
