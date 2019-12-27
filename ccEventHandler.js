@@ -1,23 +1,23 @@
 var request = require('request');
 
 const hao_view = {
-    token: "xoxb-337577310114-882730030437-UOUesGMfdAxugsYBsWDqyOEt",
-    user_id: "U9YJLMEAK",
+    token: 'xoxb-337577310114-882730030437-WHf1KIZLJoGTnYGrn4sQ0eKd',
+    user_id: 'U9YJLMEAK',
     view: {
-        type: "home",
+        type: 'home',
         blocks: [{
-            type: "section",
+            type: 'section',
             text: {
-                type: "mrkdwn",
-                text: "Click to Authenticate - APP - 12/27"
+                type: 'mrkdwn',
+                text: 'Click to Authenticate - APP - 12/27'
             },
             accessory: {
-                type: "button",
+                type: 'button',
                 text: {
-                    type: "plain_text",
-                    text: "watch me"
+                    type: 'plain_text',
+                    text: 'watch me'
                 },
-                url: "https://slack.com/oauth/authorize?scope=commands,bot&client_id=337577310114.861150093250&state=arglebargle&redirect_uri=https://channelcoms.herokuapp.com/slack/authAttempt"
+                url: 'https://slack.com/oauth/authorize?scope=commands,bot&client_id=337577310114.861150093250&state=arglebargle&redirect_uri=https://channelcoms.herokuapp.com/slack/authAttempt'
             }
         }]
     }
@@ -40,7 +40,7 @@ const hao = function (
     console.log(JSON.stringify(event));
     console.log(event.type);
     hao_view.user_id = event.user;
-    request_options.auth.bearer = "xoxb-337577310114-882730030437-UOUesGMfdAxugsYBsWDqyOEt";
+    request_options.auth.bearer = "xoxb-337577310114-882730030437-WHf1KIZLJoGTnYGrn4sQ0eKd";
     request_options.body = JSON.stringify(hao_view);
     console.log("OPTIONS: " + JSON.stringify(request_options));
     const requested = request.post(request_options, function (error, response, body) {
