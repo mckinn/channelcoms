@@ -2,7 +2,7 @@
     ccEvents,
 }; */
 
-module.exports = ccevents;
+module.exports = ccEvents;
 
 const ccEvents = {
     app_home_opened: {
