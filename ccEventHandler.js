@@ -43,7 +43,7 @@ const hao = function (
     hao_view.token = token;
     console.log("VIEW: " + JSON.stringify(hao_view));
     request_options.auth.bearer = token;
-    request_options.body = JSON.stringify(hao_view);
+    request_options.body = hao_view;
     console.log("OPTIONS: " + JSON.stringify(request_options));
     const requested = request.post(request_options, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
