@@ -9,7 +9,7 @@ const hao_view = {
             type: "section",
             text: {
                 type: "mrkdwn",
-                text: "Click to Authenticate - 12/25.v1"
+                text: "Click to Authenticate - APP - 12/27"
             },
             accessory: {
                 type: "button",
@@ -43,7 +43,11 @@ const hao = function (
     request_options.auth.bearer = token;
     request_options.body = JSON.stringify(hao_view);
     console.log("OPTIONS: " + JSON.stringify(request_options));
-    const requested = request.post(request_options);
+    const requested = request.post(request_options, function (error, response, body) {
+        console.log('error:', error); // Print the error if one occurred
+        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+        console.log('body:', body); // Print the HTML for the Google homepage.
+    });
     console.log("REQUESTED: " + JSON.stringify(requested));
 }
 
