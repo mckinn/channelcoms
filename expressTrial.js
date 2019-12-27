@@ -156,28 +156,30 @@ server.get('/slack/authAttempt', (request, response) => {
             client_secret: clientSecret,
             code
         });
-        console.log(JSON.stringify(result));
-    })();
+        console.log("IN oauth.access: " + JSON.stringify(result));
+        // })();
 
-    console.log("completed oauth.access await.");
-    const creds = (({
-            access_token,
-            scope,
-            team_name,
-            team_id,
-            bot
-        }) =>
-        ({
-            access_token,
-            scope,
-            team_name,
-            team_id,
-            bot
-        }))(result);
-    console.log("creds = ");
-    console.log(JSON.stringify(creds));
+        console.log("completed oauth.access await.");
+        console.log("Outside oauth.access: " + JSON.stringify(result));
 
-    (async () => {
+        const creds = (({
+                access_token,
+                scope,
+                team_name,
+                team_id,
+                bot
+            }) =>
+            ({
+                access_token,
+                scope,
+                team_name,
+                team_id,
+                bot
+            }))(result);
+        console.log("creds = ");
+        console.log(JSON.stringify(creds));
+
+        // (async () => {
         const cm = new credModel(creds);
         await cm.save(function (err, cm) {
             if (err) console.error(err);
