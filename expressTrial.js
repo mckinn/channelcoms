@@ -125,7 +125,7 @@ server.post('/slack', (request, response) => {
     } else {
         console.log(`Main event type = ${body.type}`);
         if (body.type == "event_callback") {
-            ccHandler = ccEvents[body.event.type].handler(body.event);
+            ccHandler = ccEvents[body.event.type].handler(body.event, body.token);
         }
     }
 });
