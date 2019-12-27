@@ -7,6 +7,9 @@ const express = require('express'),
     } = require('@slack/web-api'),
     mongoose = require('mongoose');
 
+import {
+    ccEvents
+} from './ccEventHandler';
 
 //note - this port is meaningless to Heroku, 
 // but that does not seem to matter
@@ -105,18 +108,23 @@ server.post('/slack', (request, response) => {
     console.log('validation challenge');
     const body = request.body;
     console.log(JSON.stringify(body));
-    // const cha = (({challenge}) => ({challenge}))(body); // destructure the challenge property to an object
-    const cha = ( // IFFE
-        function ({
-            challenge
-        }) { // assign challenge the value from the passed object
-            return {
+    if (body.type == "url_verification") {
+        console.log(body.type);
+        // const cha = (({challenge}) => ({challenge}))(body); // destructure the challenge property to an object
+        const cha = ( // IFFE
+            function ({
                 challenge
-            }; // return an object, rather than the thing itself
-        }
-    )(body); // execute the thing
-    console.log(JSON.stringify(cha));
-    response.json(cha);
+            }) { // assign challenge the value from the passed object
+                return {
+                    challenge
+                }; // return an object, rather than the thing itself
+            }
+        )(body); // execute the thing
+        console.log(JSON.stringify(cha));
+        response.json(cha);
+    } else {
+        ccHandler = ccEvents[body.type](body);
+    }
 });
 
 server.get('/slack/authAttempt', (request, response) => {
