@@ -9,7 +9,7 @@ const hao_view = {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: 'Click to Authenticate - APP - 12/27'
+                text: 'Click to Authenticate - APP - 12/31a'
             },
             accessory: {
                 type: 'button',
@@ -17,7 +17,7 @@ const hao_view = {
                     type: 'plain_text',
                     text: 'watch me'
                 },
-                url: 'https://slack.com/oauth/authorize?scope=commands,bot&client_id=337577310114.861150093250&state=arglebargle&redirect_uri=https://channelcoms.herokuapp.com/slack/authAttempt'
+                url: 'https://slack.com/oauth/authorize?scope=channels,groups,im,mpim,sdfsdf,bot&client_id=337577310114.861150093250&state=arglebargle&redirect_uri=https://channelcoms.herokuapp.com/slack/authAttempt'
             }
         }]
     }
