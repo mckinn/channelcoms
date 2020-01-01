@@ -9,7 +9,7 @@ const hao_view = {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: 'Click to Authenticate - APP - 12/31a'
+                text: 'Click to Authenticate - APP - 12/31b'
             },
             accessory: {
                 type: 'button',
