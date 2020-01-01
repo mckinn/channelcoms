@@ -132,6 +132,7 @@ server.post('/slack', (request, response) => {
                 ccHandler = ccEvents[body.event.type].handler(body.event, botToken);
             } else {
                 console.log("NEW EVENT TYPE:" + body.event.type);
+                console.log("NEW EVENT:" + body.event);
             }
         }
     }
@@ -164,6 +165,7 @@ server.get('/slack/authAttempt', (request, response) => {
 
         const creds = (({
                 access_token,
+                user_id,
                 scope,
                 team_name,
                 team_id,
@@ -171,6 +173,7 @@ server.get('/slack/authAttempt', (request, response) => {
             }) =>
             ({
                 access_token,
+                user_id,
                 scope,
                 team_name,
                 team_id,
