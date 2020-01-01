@@ -65,6 +65,7 @@ db.once('open', function () {
     console.log(`Database ${databaseUrl} connected`);
     // create schema (class) and model
     credsSchema = new mongoose.Schema({
+        user_id: String,
         access_token: String,
         scope: String,
         team_name: String,
