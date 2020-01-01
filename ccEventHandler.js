@@ -17,7 +17,7 @@ const hao_view = {
                     type: 'plain_text',
                     text: 'watch me'
                 },
-                url: 'https://slack.com/oauth/authorize?scope=channels,groups,im,mpim,sdfsdf,bot&client_id=337577310114.861150093250&state=arglebargle&redirect_uri=https://channelcoms.herokuapp.com/slack/authAttempt'
+                url: 'https://slack.com/oauth/authorize?scope=channels,groups,im,mpim,bot&client_id=337577310114.861150093250&state=arglebargle&redirect_uri=https://channelcoms.herokuapp.com/slack/authAttempt'
             }
         }]
     }
