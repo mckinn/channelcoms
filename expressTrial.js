@@ -133,7 +133,7 @@ server.post('/slack', (request, response) => {
                 ccHandler = ccEvents[body.event.type].handler(body.event, botToken);
             } else {
                 console.log("NEW EVENT TYPE:" + body.event.type);
-                console.log("NEW EVENT:" + body.event);
+                console.log("NEW EVENT:" + JSON.stringify(body.event));
             }
         }
     }
