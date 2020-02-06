@@ -1,5 +1,7 @@
 var request = require('request');
 
+
+// description of the Home Page View 
 const hao_view = {
     token: 'replace',
     user_id: 'replace',
@@ -48,12 +50,16 @@ const hao = function (
     const requested = request.post(request_options, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
         console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        console.log('body:', body); // Print the HTML for the Google homepage.
+        console.log('body:', JSON.stringify(body)); // Print the HTML for the Google homepage.
     });
     console.log("REQUESTED: " + JSON.stringify(requested));
 }
 
+
+// a collection of events handling data that includes the name and 
+// handler function for each event
 const ccEvents = {
+    // the event seen when the home page is opened.
     app_home_opened: {
         name: "app_home_opened",
         handler: hao

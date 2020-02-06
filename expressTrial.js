@@ -30,6 +30,7 @@ const db = mongoose.connection;
 console.log("Auth token is: " + userToken);
 const web = new WebClient(userToken);
 
+// send a message from the provisioned user to the general channel
 async function pingUser(textToSend = "hi there") {
     // Use the `auth.test` method to find information about the installing user
     const res = await web.auth.test();
@@ -97,7 +98,7 @@ process.on('exit', (code) => {
     console.log('Process exit event with code: ', code);
 });
 
-//Adding routes
+//Adding routes for direct web access
 
 server.get('/', (request, response) => {
     console.log('Hello World');
@@ -106,10 +107,15 @@ server.get('/', (request, response) => {
     });
 });
 
+// General event handler
+// managed in slack as an event subscription...
+// https://api.slack.com/apps/ARB4E2R7C/event-subscriptions?
+
+
 server.post('/slack', (request, response) => {
     console.log('*** event happened ***');
     const body = request.body;
-    console.log("COMPLETE BODY: " + JSON.stringify(body));
+    // console.log("COMPLETE BODY: " + JSON.stringify(body));
     response.sendStatus(200);
 
     if (body.type == "url_verification") {
@@ -139,6 +145,13 @@ server.post('/slack', (request, response) => {
     }
 });
 
+// This is configured as the redirect URL that is passed to SLACK to 
+// allow the addition of ann "add to slack" button.  This is part of the
+// home page button sequence, but not part of the standard message
+// handling stuff.
+
+// configured in https://api.slack.com/apps/ARB4E2R7C/oauth?success=1
+
 server.get('/slack/authAttempt', (request, response) => {
 
     console.log('authorization attempt' + JSON.stringify(request.url));
@@ -159,7 +172,7 @@ server.get('/slack/authAttempt', (request, response) => {
             code
         });
         console.log("IN oauth.access: " + JSON.stringify(result));
-        // })();
+
 
         console.log("completed oauth.access await.");
         console.log("Outside oauth.access: " + JSON.stringify(result));
@@ -183,7 +196,7 @@ server.get('/slack/authAttempt', (request, response) => {
         console.log("creds = ");
         console.log(JSON.stringify(creds));
 
-        // (async () => {
+        // Save the new credentials in the database
         const cm = new credModel(creds);
         await cm.save(function (err, cm) {
             if (err) console.error(err);
